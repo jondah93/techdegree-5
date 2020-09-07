@@ -2,7 +2,7 @@ from flask import (Flask, render_template, url_for, abort,
                    redirect, g, flash, request)
 
 from flask_login import (LoginManager, login_user, logout_user,
-                         login_required, current_user)
+                         login_required)
 
 from flask_bcrypt import check_password_hash
 from flask_wtf.csrf import CSRFProtect
@@ -124,7 +124,7 @@ def edit_entry(id):
     entry = models.JournalEntry.get(models.JournalEntry.id == id)
     form = forms.EditEntryForm()
     form.process(formdata=request.form, obj=entry)
-    #TODO: find a better solution to the row below (78) for pre-populating the tags-field
+    # TODO: find a better solution to the row below (78) for pre-populating the tags-field
     form.tags.process(formdata=request.form, data=(','.join([tag.tag for tag in entry.tags])))
     if form.validate_on_submit():
         models.JournalEntry.update({

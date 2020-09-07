@@ -14,7 +14,6 @@ class User(UserMixin, Model):
     joined_at = DateTimeField(default=datetime.datetime.now)
     is_admin = BooleanField(default=False)
 
-
     class Meta:
         database = DATABASE
         order_by = ('-joined_at',)
@@ -39,7 +38,6 @@ class JournalEntry(Model):
     entry = TextField()
     resources = TextField()
 
-
     class Meta:
         database = DATABASE
         order_by = ('-created_at',)
@@ -59,16 +57,13 @@ class JournalEntry(Model):
             raise ValueError('A journal entry with that title already exists')
 
 
-
 class EntryTag(Model):
-    #TODO: make this a many-to-many so that one tag can relate to multiple posts and make tag-field unique.
+    # TODO: make this a many-to-many so that one tag can relate to multiple posts and make tag-field unique.
     tag = CharField()
     entry = ForeignKeyField(JournalEntry, backref='tags')
 
-
     class Meta:
         database = DATABASE
-
 
 
 def initialize():
