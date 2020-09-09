@@ -110,7 +110,7 @@ def new_entry():
             models.EntryTag.create(
                 tag=tag,
                 entry=models.JournalEntry.get(
-                    models.JournalEntry.title == form.title.data.strip()
+                    models.JournalEntry.title == form.title.data.strip(),
                 )
             )
         flash('Journal entry created!', 'success')
@@ -144,7 +144,7 @@ def edit_entry(id):
             if tag not in [tag.tag for tag in entry.tags] and tag != '':
                 models.EntryTag.create(
                     tag=tag,
-                    entry=entry
+                    entry=entry,
                 )
 
         flash('Journal entry edited!', 'success')
@@ -173,13 +173,13 @@ if __name__ == '__main__':
         models.JournalEntry.create_journal_entry(
             title='Initial Journal Entry',
             created_at=models.JournalEntry.created_at.default(),
-            time='Over 9000 seconds!',
-            entry='Today I\'ve spent some time writing my 5th Techdegree assignment.',
-            resources='Treehouse Techdegree',
+            time='1 hour',
+            entry='My first journal entry!',
+            resources='teamtreehouse.com',
         )
         models.EntryTag.create(
             tag='tag',
-            entry=models.JournalEntry.get(models.JournalEntry.id == 1)
+            entry=models.JournalEntry.get(models.JournalEntry.id == 1),
         )
     except ValueError:
         pass

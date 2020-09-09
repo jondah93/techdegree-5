@@ -15,7 +15,7 @@ def title_exists(form, field):
 class EntryForm(FlaskForm):
     title = StringField('Title', validators=[
         DataRequired(),
-        title_exists
+        title_exists,
     ])
     created_at = DateField('Date', format='%Y-%m-%d', validators=[DataRequired()])
     time = StringField('Time Spent', validators=[DataRequired()])
@@ -24,22 +24,16 @@ class EntryForm(FlaskForm):
     tags = StringField('Tags (comma separated)')
 
 
-class EditEntryForm(FlaskForm):
-    # Same as EntryForm but without DataRequired() for each field
-    title = StringField('Title')
-    created_at = DateField('Date', format='%Y-%m-%d')
-    time = StringField('Time Spent')
-    entry = TextAreaField('What I Learned')
+class EditEntryForm(EntryForm):
+    # Same as EntryForm but without title_exists so that you can edit and keep the title
+    title = StringField('Title', validators=[DataRequired()])
+    created_at = DateField('Date', format='%Y-%m-%d', validators=[DataRequired()])
+    time = StringField('Time Spent', validators=[DataRequired()])
+    entry = TextAreaField('What I Learned', validators=[DataRequired()])
     resources = TextAreaField('Resources to Remember (comma separated)')
     tags = StringField('Tags (comma separated)')
 
 
 class LoginForm(FlaskForm):
-    username = StringField(
-        'Username',
-        validators=[DataRequired()]
-    )
-    password = PasswordField(
-        'Password',
-        validators=[DataRequired()]
-    )
+    username = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
